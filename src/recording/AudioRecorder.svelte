@@ -41,7 +41,8 @@
   //@ts-ignore
   const recognition: SpeechRecognition = new webkitSpeechRecognition();
   recognition.continuous = false;
-  recognition.lang = "en-GB";
+  // recognition.lang = "en-GB";
+  recognition.lang = "ru";
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
@@ -59,7 +60,8 @@
 
     analysis = null;
 
-    if (atEnd && transcript.toLowerCase() === "completed") {
+    // if (atEnd && transcript.toLowerCase() === "completed") {
+    if (atEnd && transcript.toLowerCase() === "Готово") {
       completed();
       return;
     }
@@ -234,7 +236,8 @@
   $: bottomPrompt = currentTokenNumber === 0 ? "To begin, say:" : atEnd ? "Or if you're done, say:" : "Or say the next line to move on:";
 
   let bottomLine: string;
-  $: bottomLine = atEnd ? "Completed" : currentLine || " ";
+  // $: bottomLine = atEnd ? "Completed" : currentLine || " ";
+  $: bottomLine = atEnd ? "Готово" : currentLine || " ";
 
   const decisionText: Record<"CURRENT" | "PREVIOUS" | "UNCLEAR" | "SHORT", string> = {
     "CURRENT": "I think that was the new line.",
@@ -384,7 +387,8 @@
       {/if}
 
       {#if atEnd}
-        <button class="overrideButton" on:click={completed}>Completed</button>
+        <!-- <button class="overrideButton" on:click={completed}>Completed</button> -->
+        <button class="overrideButton" on:click={completed}>Готово</button>
       {:else}
         <button class="overrideButton" on:click={newLineOverride}>New Line</button>
       {/if}
